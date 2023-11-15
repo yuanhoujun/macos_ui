@@ -263,7 +263,7 @@ class _ToolBarState extends State<ToolBar> {
         ),
       ),
       child: _WallpaperTintedAreaOrBlurFilter(
-        enableWallpaperTintedArea: kIsWeb ? false : !widget.enableBlur,
+        enableWallpaperTintedArea: kIsWeb || (!kIsWeb && !isMacOS) ? false : !widget.enableBlur,
         isWidgetVisible: widget.allowWallpaperTintingOverrides,
         backgroundColor: theme.canvasColor,
         widgetOpacity: widget.decoration?.color?.opacity,

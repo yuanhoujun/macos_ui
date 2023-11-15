@@ -265,7 +265,7 @@ class _MacosWindowState extends State<MacosWindow> {
                     minHeight: height,
                     maxHeight: height,
                   ).normalize(),
-                  child: kIsWeb ? ColoredBox(
+                  child: !isMac ? ColoredBox(
                     color: theme.canvasColor,
                     child: Column(
                       children: [
@@ -274,7 +274,7 @@ class _MacosWindowState extends State<MacosWindow> {
                         // traffic lights. Otherwise, position the sidebar
                         // by the top of the application's bounds based on
                         // the presence of sidebar.top.
-                        if (!kIsWeb && sidebar.topOffset > 0) ...[
+                        if (isMac && sidebar.topOffset > 0) ...[
                           SizedBox(height: sidebar.topOffset),
                         ] else if (sidebar.top != null) ...[
                           const SizedBox(height: 12),
@@ -318,7 +318,7 @@ class _MacosWindowState extends State<MacosWindow> {
                         // traffic lights. Otherwise, position the sidebar
                         // by the top of the application's bounds based on
                         // the presence of sidebar.top.
-                        if (!kIsWeb && sidebar.topOffset > 0) ...[
+                        if (isMac && sidebar.topOffset > 0) ...[
                           SizedBox(height: sidebar.topOffset),
                         ] else if (sidebar.top != null) ...[
                           const SizedBox(height: 12),

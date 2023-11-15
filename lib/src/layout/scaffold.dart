@@ -77,7 +77,7 @@ class _MacosScaffoldState extends State<MacosScaffold> {
 
         return Stack(
           children: [
-            if (!kIsWeb) ...[
+            if (!kIsWeb && defaultTargetPlatform == TargetPlatform.macOS) ...[
               // Content Area
               Positioned(
                 top: 0,
