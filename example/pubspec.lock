@@ -186,10 +186,11 @@ packages:
   macos_window_utils:
     dependency: transitive
     description:
-      name: macos_window_utils
-      sha256: "230be594d26f6dee92c5a1544f4242d25138a5bfb9f185b27f14de3949ef0be8"
-      url: "https://pub.dev"
-    source: hosted
+      path: "."
+      ref: HEAD
+      resolved-ref: ecf47945c53d6a2479d55026d1f56a76ea665b25
+      url: "https://github.com/yuanhoujun/macos_window_utils.dart.git"
+    source: git
     version: "1.5.0"
   matcher:
     dependency: transitive

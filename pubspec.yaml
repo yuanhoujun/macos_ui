@@ -11,7 +11,9 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  macos_window_utils: ^1.5.0
+  macos_window_utils: 
+    git:
+      url: https://github.com/yuanhoujun/macos_window_utils.dart.git
   gradient_borders: ^1.0.0
   appkit_ui_element_colors: ^1.0.0
 
