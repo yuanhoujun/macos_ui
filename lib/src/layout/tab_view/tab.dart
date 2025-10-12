@@ -43,7 +43,7 @@ class MacosTab extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
-          child: Text(label),
+          child: Text(label, style: MacosTheme.of(context).typography.body),
         ),
       ),
     );
