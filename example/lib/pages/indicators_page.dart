@@ -18,6 +18,7 @@ class _IndicatorsPageState extends State<IndicatorsPage> {
 
   @override
   Widget build(BuildContext context) {
+    print("222222222222222");
     return MacosScaffold(
       toolBar: ToolBar(
         title: const Text('Indicators'),

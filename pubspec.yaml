@@ -3,6 +3,7 @@ description: Flutter widgets and themes implementing the current macOS design la
 version: 2.0.2
 homepage: "https://macosui.dev"
 repository: "https://github.com/GroovinChip/macos_ui"
+publish_to: none
 
 environment:
   sdk: ">=3.0.0 <4.0.0"
@@ -14,6 +15,7 @@ dependencies:
   macos_window_utils: 
     git:
       url: https://github.com/yuanhoujun/macos_window_utils.dart.git
+      ref: dev
   gradient_borders: ^1.0.0
   appkit_ui_element_colors: ^1.0.0
 

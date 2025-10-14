@@ -72,6 +72,7 @@ class _WidgetGalleryState extends State<WidgetGallery> {
 
   @override
   Widget build(BuildContext context) {
+    print("1111111111111");
     return PlatformMenuBar(
       menus: menuBarItems(),
       child: MacosWindow(
