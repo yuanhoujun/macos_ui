@@ -5,10 +5,7 @@ import 'package:macos_ui/src/library.dart';
 
 void main() {
   test('copyWith, ==, hashcode basics', () {
-    expect(
-      const MacosIconThemeData(),
-      const MacosIconThemeData().copyWith(),
-    );
+    expect(const MacosIconThemeData(), const MacosIconThemeData().copyWith());
     expect(
       const MacosIconThemeData().hashCode,
       const MacosIconThemeData().copyWith().hashCode,
@@ -16,21 +13,13 @@ void main() {
   });
 
   test('lerps from light to dark', () {
-    final actual = MacosIconThemeData.lerp(
-      _iconTheme,
-      _iconThemeDark,
-      1,
-    );
+    final actual = MacosIconThemeData.lerp(_iconTheme, _iconThemeDark, 1);
 
     expect(actual, _iconThemeDark);
   });
 
   test('lerps from dark to light', () {
-    final actual = MacosIconThemeData.lerp(
-      _iconThemeDark,
-      _iconTheme,
-      1,
-    );
+    final actual = MacosIconThemeData.lerp(_iconThemeDark, _iconTheme, 1);
 
     expect(actual, _iconTheme);
   });
@@ -48,14 +37,11 @@ void main() {
         .map((node) => node.toString())
         .toList();
 
-    expect(
-      description,
-      [
-        'MacosColor: MacosColor(0xffffffff)',
-        'opacity: 0.0',
-        'size: 20.0',
-      ],
-    );
+    expect(description, [
+      'MacosColor: MacosColor(alpha: 1.0000, red: 1.0000, green: 1.0000, blue: 1.0000, colorSpace: ColorSpace.sRGB)',
+      'opacity: 0.0',
+      'size: 20.0',
+    ]);
   });
 
   testWidgets('Default values in widget tree', (tester) async {
@@ -69,9 +55,7 @@ void main() {
               ContentArea(
                 builder: (context, _) {
                   capturedContext = context;
-                  return const MacosIcon(
-                    CupertinoIcons.add,
-                  );
+                  return const MacosIcon(CupertinoIcons.add);
                 },
               ),
             ],
@@ -81,15 +65,11 @@ void main() {
     );
 
     final theme = MacosIconTheme.of(capturedContext);
-    expect(theme.color, CupertinoColors.activeBlue.color);
+    expect(theme.color, const MacosColor.fromRGBO(9, 129, 255, 0.749));
     expect(theme.size, 20);
   });
 }
 
-const _iconTheme = MacosIconThemeData(
-  color: MacosColors.black,
-);
+const _iconTheme = MacosIconThemeData(color: MacosColors.black);
 
-const _iconThemeDark = MacosIconThemeData(
-  color: MacosColors.white,
-);
+const _iconThemeDark = MacosIconThemeData(color: MacosColors.white);

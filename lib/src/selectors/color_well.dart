@@ -80,9 +80,9 @@ class _MacosColorWellState extends State<MacosColorWell> {
 
   Stream<Color>? _onColorChanged;
   Stream<Color> get onColorChanged {
-    _onColorChanged ??= _eventChannel
-        .receiveBroadcastStream()
-        .map((event) => Color(int.parse(event)));
+    _onColorChanged ??= _eventChannel.receiveBroadcastStream().map(
+      (event) => Color(int.parse(event)),
+    );
     return _onColorChanged!;
   }
 
@@ -106,7 +106,7 @@ class _MacosColorWellState extends State<MacosColorWell> {
   Widget build(BuildContext context) {
     final theme = MacosTheme.of(context);
     final outerColor = theme.brightness.isDark
-        ? MacosColors.systemGrayColor.withOpacity(0.5)
+        ? MacosColors.systemGrayColor.withValues(alpha: 0.5)
         : MacosColors.white;
     return GestureDetector(
       onTap: () async {

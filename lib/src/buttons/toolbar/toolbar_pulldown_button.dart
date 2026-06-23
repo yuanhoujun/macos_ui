@@ -1,5 +1,6 @@
 import 'package:macos_ui/macos_ui.dart';
 import 'package:macos_ui/src/library.dart';
+import 'package:macos_window_utils/widgets/macos_toolbar_passthrough.dart';
 
 /// A pulldown button suitable for the toolbar.
 class ToolBarPullDownButton extends ToolbarItem {
@@ -62,10 +63,7 @@ class ToolBarPullDownButton extends ToolbarItem {
               const Color.fromRGBO(255, 255, 255, 0.5),
             ),
           ),
-          child: MacosPulldownButton(
-            icon: icon,
-            items: items,
-          ),
+          child: MacosPulldownButton(icon: icon, items: items),
         ),
       );
 
@@ -75,7 +73,7 @@ class ToolBarPullDownButton extends ToolbarItem {
           child: pulldownButton,
         );
       }
-      return pulldownButton;
+      return MacosToolbarPassthrough(child: pulldownButton);
     } else {
       // We should show a submenu for the pulldown button items.
       final subMenuKey = GlobalKey<ToolbarPopupState>();
@@ -84,8 +82,10 @@ class ToolBarPullDownButton extends ToolbarItem {
       // Convert the original pulldown menu items to toolbar overflow menu items.
       items?.forEach((element) {
         if (element is MacosPulldownMenuItem) {
-          assert(element.label != null,
-              'When you use a MacosPulldownButton in the Toolbar, you must set the label property for all MacosPulldownMenuItems.');
+          assert(
+            element.label != null,
+            'When you use a MacosPulldownButton in the Toolbar, you must set the label property for all MacosPulldownMenuItems.',
+          );
           subMenuItems.add(
             ToolbarOverflowMenuItem(
               label: element.label!,
@@ -117,9 +117,9 @@ class ToolBarPullDownButton extends ToolbarItem {
             placement: ToolbarPopupPlacement.start,
             child: MouseRegion(
               onHover: (e) {
-                subMenuKey.currentState
-                    ?.openPopup()
-                    .then((value) => setState(() => isSelected = false));
+                subMenuKey.currentState?.openPopup().then(
+                  (value) => setState(() => isSelected = false),
+                );
                 setState(() => isSelected = true);
               },
               child: ToolbarOverflowMenuItem(

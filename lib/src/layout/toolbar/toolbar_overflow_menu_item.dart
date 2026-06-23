@@ -62,10 +62,9 @@ class _ToolbarOverflowMenuItemState extends State<ToolbarOverflowMenuItem> {
 
   Color get _textColor => _isHighlighted
       ? MacosColors.white
-      : MacosTheme.brightnessOf(context).resolve(
-          MacosColors.black,
-          MacosColors.white,
-        );
+      : MacosTheme.brightnessOf(
+          context,
+        ).resolve(MacosColors.black, MacosColors.white);
 
   @override
   Widget build(BuildContext context) {
@@ -89,7 +88,7 @@ class _ToolbarOverflowMenuItemState extends State<ToolbarOverflowMenuItem> {
         child: GestureDetector(
           onTap: _handleOnTap,
           child: Focus(
-            onKey: (FocusNode node, RawKeyEvent event) {
+            onKeyEvent: (FocusNode node, KeyEvent event) {
               if (event.logicalKey == LogicalKeyboardKey.enter) {
                 _handleOnTap();
                 return KeyEventResult.handled;
@@ -105,10 +104,7 @@ class _ToolbarOverflowMenuItemState extends State<ToolbarOverflowMenuItem> {
                 borderRadius: const BorderRadius.all(Radius.circular(5.0)),
               ),
               child: DefaultTextStyle(
-                style: TextStyle(
-                  fontSize: 13.0,
-                  color: _textColor,
-                ),
+                style: TextStyle(fontSize: 13.0, color: _textColor),
                 child: (hasSubMenu)
                     ? Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,

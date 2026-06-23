@@ -31,8 +31,8 @@ class MacosPulldownButtonTheme extends InheritedTheme {
   /// MacosPulldownButtonTheme theme = MacosPulldownButtonTheme.of(context);
   /// ```
   static MacosPulldownButtonThemeData of(BuildContext context) {
-    final MacosPulldownButtonTheme? buttonTheme =
-        context.dependOnInheritedWidgetOfExactType<MacosPulldownButtonTheme>();
+    final MacosPulldownButtonTheme? buttonTheme = context
+        .dependOnInheritedWidgetOfExactType<MacosPulldownButtonTheme>();
     return buttonTheme?.data ?? MacosTheme.of(context).pulldownButtonTheme;
   }
 
@@ -114,10 +114,10 @@ class MacosPulldownButtonThemeData with Diagnosticable {
       identical(this, other) ||
       other is MacosPulldownButtonThemeData &&
           runtimeType == other.runtimeType &&
-          highlightColor?.value == other.highlightColor?.value &&
-          backgroundColor?.value == other.backgroundColor?.value &&
-          pulldownColor?.value == other.pulldownColor?.value &&
-          iconColor?.value == other.iconColor?.value;
+          highlightColor == other.highlightColor &&
+          backgroundColor == other.backgroundColor &&
+          pulldownColor == other.pulldownColor &&
+          iconColor == other.iconColor;
 
   @override
   int get hashCode => highlightColor.hashCode ^ backgroundColor.hashCode;

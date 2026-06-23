@@ -74,7 +74,7 @@ extension MacosDynamicColor on CupertinoDynamicColor {
 
     final CupertinoUserInterfaceLevelData level = isInterfaceElevationDependent
         ? CupertinoUserInterfaceLevel.maybeOf(context) ??
-            CupertinoUserInterfaceLevelData.base
+              CupertinoUserInterfaceLevelData.base
         : CupertinoUserInterfaceLevelData.base;
 
     final Color resolved;
@@ -94,8 +94,9 @@ extension MacosDynamicColor on CupertinoDynamicColor {
       case Brightness.dark:
         switch (level) {
           case CupertinoUserInterfaceLevelData.base:
-            resolved =
-                isHighContrastEnabled ? darkHighContrastColor : darkColor;
+            resolved = isHighContrastEnabled
+                ? darkHighContrastColor
+                : darkColor;
             break;
           case CupertinoUserInterfaceLevelData.elevated:
             resolved = isHighContrastEnabled
@@ -139,18 +140,24 @@ class ResolvedMacosDynamicColor extends CupertinoDynamicColor {
     Color darkHighContrastElevatedColor,
     Element? debugResolveContext,
   ) : super(
-          color: color,
-          darkColor: darkColor,
-          highContrastColor: highContrastColor,
-          darkHighContrastColor: darkHighContrastColor,
-          elevatedColor: elevatedColor,
-          darkElevatedColor: darkElevatedColor,
-          highContrastElevatedColor: highContrastElevatedColor,
-          darkHighContrastElevatedColor: darkHighContrastElevatedColor,
-        );
+        color: color,
+        darkColor: darkColor,
+        highContrastColor: highContrastColor,
+        darkHighContrastColor: darkHighContrastColor,
+        elevatedColor: elevatedColor,
+        darkElevatedColor: darkElevatedColor,
+        highContrastElevatedColor: highContrastElevatedColor,
+        darkHighContrastElevatedColor: darkHighContrastElevatedColor,
+      );
 
   final Color resolvedColor;
 
   @override
-  int get value => resolvedColor.value;
+  double get r => resolvedColor.r;
+
+  @override
+  double get g => resolvedColor.g;
+
+  @override
+  double get b => resolvedColor.b;
 }

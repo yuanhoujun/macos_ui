@@ -11,18 +11,16 @@ class WidgetTextTitle2 extends StatelessWidget {
   Widget build(BuildContext context) {
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: MacosColors.systemGrayColor.withOpacity(0.5),
+        color: MacosColors.systemGrayColor.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(4.0),
       ),
       child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: 6.0,
-        ),
+        padding: const EdgeInsets.symmetric(horizontal: 6.0),
         child: Text(
           widgetName,
-          style: MacosTypography.of(context)
-              .title2
-              .copyWith(fontFamily: GoogleFonts.jetBrainsMono().fontFamily),
+          style: MacosTypography.of(
+            context,
+          ).title2.copyWith(fontFamily: GoogleFonts.jetBrainsMono().fontFamily),
         ),
       ),
     );

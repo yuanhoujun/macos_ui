@@ -51,14 +51,11 @@ void main() {
           .map((node) => node.toString())
           .toList();
 
-      expect(
-        description,
-        [
-          'highlightColor: MacosColor(0xff8e8e93)',
-          'backgroundColor: MacosColor(0xff0433ff)',
-          'popupColor: Color(0x19000000)',
-        ],
-      );
+      expect(description, [
+        'highlightColor: MacosColor(alpha: 1.0000, red: 0.5569, green: 0.5569, blue: 0.5765, colorSpace: ColorSpace.sRGB)',
+        'backgroundColor: MacosColor(alpha: 1.0000, red: 0.0157, green: 0.2000, blue: 1.0000, colorSpace: ColorSpace.sRGB)',
+        'popupColor: Color(alpha: 0.1000, red: 0.0000, green: 0.0000, blue: 0.0000, colorSpace: ColorSpace.sRGB)',
+      ]);
     });
 
     testWidgets('Default values in widget tree', (tester) async {
@@ -80,11 +77,12 @@ void main() {
                       },
                       items: <String>['One', 'Two', 'Three', 'Four']
                           .map<MacosPopupMenuItem<String>>((String value) {
-                        return MacosPopupMenuItem<String>(
-                          value: value,
-                          child: Text(value),
-                        );
-                      }).toList(),
+                            return MacosPopupMenuItem<String>(
+                              value: value,
+                              child: Text(value),
+                            );
+                          })
+                          .toList(),
                     );
                   },
                 ),
@@ -96,7 +94,10 @@ void main() {
 
       final theme = MacosPopupButtonTheme.of(capturedContext);
       expect(theme.backgroundColor, const Color(0xffffffff));
-      expect(theme.highlightColor, const Color(0xff007aff));
+      expect(
+        theme.highlightColor,
+        const MacosColor.fromRGBO(9, 129, 255, 0.749),
+      );
       expect(theme.popupColor, const Color(0xfff2f2f7));
     });
   });

@@ -48,13 +48,10 @@ void main() {
           .map((node) => node.toString())
           .toList();
 
-      expect(
-        description,
-        [
-          'highlightColor: Color(0xff007aff)',
-          'resultsBackgroundColor: Color(0xfff2f2f7)',
-        ],
-      );
+      expect(description, [
+        'highlightColor: Color(alpha: 1.0000, red: 0.0000, green: 0.4784, blue: 1.0000, colorSpace: ColorSpace.sRGB)',
+        'resultsBackgroundColor: Color(alpha: 1.0000, red: 0.9490, green: 0.9490, blue: 0.9686, colorSpace: ColorSpace.sRGB)',
+      ]);
     });
 
     testWidgets('Default values in widget tree', (tester) async {
@@ -68,9 +65,7 @@ void main() {
                 ContentArea(
                   builder: (context, _) {
                     capturedContext = context;
-                    return const Center(
-                      child: MacosSearchField(),
-                    );
+                    return const Center(child: MacosSearchField());
                   },
                 ),
               ],
@@ -80,7 +75,10 @@ void main() {
       );
 
       final theme = MacosSearchFieldTheme.of(capturedContext);
-      expect(theme.highlightColor, const Color(0xff007aff));
+      expect(
+        theme.highlightColor,
+        const MacosColor.fromRGBO(9, 129, 255, 0.749),
+      );
       expect(theme.resultsBackgroundColor, const Color(0xfff2f2f7));
     });
   });

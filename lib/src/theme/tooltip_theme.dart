@@ -29,8 +29,8 @@ class MacosTooltipTheme extends InheritedTheme {
   /// TooltipThemeData theme = TooltipTheme.of(context);
   /// ```
   static MacosTooltipThemeData of(BuildContext context) {
-    final MacosTooltipTheme? tooltipTheme =
-        context.dependOnInheritedWidgetOfExactType<MacosTooltipTheme>();
+    final MacosTooltipTheme? tooltipTheme = context
+        .dependOnInheritedWidgetOfExactType<MacosTooltipTheme>();
     return tooltipTheme?.data ?? MacosTheme.of(context).tooltipTheme;
   }
 
@@ -85,16 +85,17 @@ class MacosTooltipThemeData with Diagnosticable {
       waitDuration: const Duration(seconds: 1),
       showDuration: const Duration(seconds: 10),
       textStyle: textStyle.copyWith(
-        color:
-            brightness.isDark ? CupertinoColors.white : CupertinoColors.black,
+        color: brightness.isDark
+            ? CupertinoColors.white
+            : CupertinoColors.black,
       ),
       decoration: () {
         const radius = BorderRadius.all(Radius.circular(2.0));
         final shadow = [
           BoxShadow(
             color: brightness.isDark
-                ? CupertinoColors.black.withOpacity(0.5)
-                : CupertinoColors.systemGrey3.color.withOpacity(0.5),
+                ? CupertinoColors.black.withValues(alpha: 0.5)
+                : CupertinoColors.systemGrey3.color.withValues(alpha: 0.5),
             offset: const Offset(0, 2),
             spreadRadius: 0.5,
             blurRadius: 4,
@@ -277,17 +278,11 @@ class MacosTooltipThemeData with Diagnosticable {
     super.debugFillProperties(properties);
     properties.add(DoubleProperty('height', height));
     properties.add(DoubleProperty('verticalOffset', verticalOffset));
+    properties.add(DiagnosticsProperty<EdgeInsetsGeometry>('padding', padding));
+    properties.add(DiagnosticsProperty<EdgeInsetsGeometry>('margin', margin));
     properties.add(
-      DiagnosticsProperty<EdgeInsetsGeometry>('padding', padding),
+      FlagProperty('preferBelow', value: preferBelow, ifFalse: 'prefer above'),
     );
-    properties.add(
-      DiagnosticsProperty<EdgeInsetsGeometry>('margin', margin),
-    );
-    properties.add(FlagProperty(
-      'preferBelow',
-      value: preferBelow,
-      ifFalse: 'prefer above',
-    ));
     properties.add(DiagnosticsProperty<Decoration>('decoration', decoration));
     properties.add(DiagnosticsProperty<Duration>('waitDuration', waitDuration));
     properties.add(DiagnosticsProperty<Duration>('showDuration', showDuration));

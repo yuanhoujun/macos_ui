@@ -1,3 +1,5 @@
+// ignore_for_file: prefer-trailing-comma
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -13,11 +15,51 @@ void main() {
   });
 
   group('MacosPulldownButton tests', () {
-    testWidgets(
-      'Can tap the MacosPulldownButton and select a menu item',
-      (tester) async {
-        await tester.pumpWidget(
-          MacosApp(
+    testWidgets('Can tap the MacosPulldownButton and select a menu item', (
+      tester,
+    ) async {
+      await tester.pumpWidget(
+        MacosApp(
+          home: MacosWindow(
+            child: MacosScaffold(
+              children: [
+                ContentArea(
+                  builder: (context, _) {
+                    return Center(
+                      child: MacosPulldownButton(
+                        title: "test",
+                        items: [
+                          MacosPulldownMenuItem(
+                            title: const Text('one'),
+                            onTap: mockOnPressedFunction.handler,
+                          ),
+                          const MacosPulldownMenuItem(
+                            title: Text('two'),
+                            onTap: null,
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      );
+
+      final pulldownButton = find.byType(MacosPulldownButton);
+      await tester.tap(pulldownButton);
+      await tester.pumpAndSettle();
+      await tester.tap(find.text("one"));
+      await tester.pumpAndSettle();
+
+      expect(mockOnPressedFunction.called, 2);
+    });
+
+    testWidgets('MacosPulldownButton displays correctly items ',
+            (WidgetTester tester) async {
+          await tester.pumpWidget(MacosApp(
             home: MacosWindow(
               child: MacosScaffold(
                 children: [
@@ -25,15 +67,15 @@ void main() {
                     builder: (context, _) {
                       return Center(
                         child: MacosPulldownButton(
-                          title: "test",
+                          title: "Menu",
                           items: [
                             MacosPulldownMenuItem(
-                              title: const Text('one'),
-                              onTap: mockOnPressedFunction.handler,
+                              title: const Text('New folder'),
+                              onTap: () {},
                             ),
-                            const MacosPulldownMenuItem(
-                              title: Text('two'),
-                              onTap: null,
+                            MacosPulldownMenuItem(
+                              title: const Text('Document'),
+                              onTap: () {},
                             ),
                           ],
                         ),
@@ -43,18 +85,19 @@ void main() {
                 ],
               ),
             ),
-          ),
-        );
+          ));
 
-        final pulldownButton = find.byType(MacosPulldownButton);
-        await tester.tap(pulldownButton);
-        await tester.pumpAndSettle();
-        await tester.tap(find.text("one"));
-        await tester.pumpAndSettle();
+          // Verify that the title is rendered on the button.
+          expect(find.text('Menu'), findsOneWidget);
 
-        expect(mockOnPressedFunction.called, 2);
-      },
-    );
+          // tap on the button to open the pulldown menu.
+          await tester.tap(find.text('Menu'));
+          await tester.pumpAndSettle();
+
+          // Verify that the menu items are displayed.
+          expect(find.text('New folder'), findsOneWidget);
+          expect(find.text('Document'), findsOneWidget);
+        });
 
     testWidgets(
       'MacosPulldownButtonItems\' onTap callback is called when defined',
@@ -84,9 +127,7 @@ void main() {
                                 menuItemTapCounters[1] += 1;
                               },
                             ),
-                            const MacosPulldownMenuItem(
-                              title: Text('no tap'),
-                            ),
+                            const MacosPulldownMenuItem(title: Text('no tap')),
                           ],
                         ),
                       );
@@ -131,30 +172,22 @@ void main() {
     test(
       "MacosPulldownButton's label and icon properties cannot be simultaneously defined",
       () {
-        expect(
-          () {
-            MacosPulldownButton(
-              icon: CupertinoIcons.eyedropper,
-              title: "test label",
-              items: const [],
-            );
-          },
-          throwsAssertionError,
-        );
+        expect(() {
+          MacosPulldownButton(
+            icon: CupertinoIcons.eyedropper,
+            title: "test label",
+            items: const [],
+          );
+        }, throwsAssertionError);
       },
     );
 
     test(
       "MacosPulldownButton's label and icon properties cannot be simultaneously missing",
       () {
-        expect(
-          () {
-            MacosPulldownButton(
-              items: const [],
-            );
-          },
-          throwsAssertionError,
-        );
+        expect(() {
+          MacosPulldownButton(items: const []);
+        }, throwsAssertionError);
       },
     );
 
@@ -170,15 +203,68 @@ void main() {
           .map((node) => node.toString())
           .toList();
 
-      expect(
-        description,
-        [
-          'itemHeight: 20.0',
-          'noAutofocus',
-          'alignment: AlignmentDirectional.centerStart',
-          'menuAlignment: PulldownMenuAlignment.left',
-        ],
+      expect(description, [
+        'itemHeight: 20.0',
+        'noAutofocus',
+        'alignment: AlignmentDirectional.centerStart',
+        'menuAlignment: PulldownMenuAlignment.left',
+      ]);
+    });
+
+    testWidgets('MacosPulldownMenuItem.onTap shows alert dialog', (
+      WidgetTester tester,
+    ) async {
+      await tester.pumpWidget(
+        MacosApp(
+          home: MacosWindow(
+            child: MacosScaffold(
+              children: [
+                ContentArea(
+                  builder: (context, _) {
+                    return Center(
+                      child: MacosPulldownButton(
+                        title: "test",
+                        items: [
+                          MacosPulldownMenuItem(
+                            title: const Text('Open Alert Dialog'),
+                            onTap: () => showMacosAlertDialog(
+                              context: context,
+                              builder: (context) => MacosAlertDialog(
+                                appIcon: const MacosIcon(
+                                  CupertinoIcons.eyedropper,
+                                ),
+                                title: const Text('Title'),
+                                message: const Text('Message'),
+                                primaryButton: PushButton(
+                                  controlSize: ControlSize.large,
+                                  onPressed: Navigator.of(context).pop,
+                                  child: const Text('Close'),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
       );
+
+      // Tap the pulldown button.
+      await tester.tap(find.text('test'));
+      await tester.pumpAndSettle();
+      // Tap the menu item to show the alert dialog.
+      await tester.tap(find.text('Open Alert Dialog'));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Open Alert Dialog'), findsNothing);
+      expect(find.text('Title'), findsOneWidget);
+      expect(find.text('Message'), findsOneWidget);
+      expect(find.text('Close'), findsOneWidget);
     });
   });
 }

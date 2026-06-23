@@ -1,5 +1,6 @@
 import 'package:macos_ui/macos_ui.dart';
 import 'package:macos_ui/src/library.dart';
+import 'package:macos_window_utils/widgets/macos_toolbar_passthrough.dart';
 
 /// A custom widget for the toolbar.
 class CustomToolbarItem extends ToolbarItem {
@@ -64,12 +65,9 @@ class CustomToolbarItem extends ToolbarItem {
     if (displayMode == ToolbarItemDisplayMode.inToolbar) {
       Widget widget = inToolbarBuilder(context);
       if (tooltipMessage != null) {
-        widget = MacosTooltip(
-          message: tooltipMessage!,
-          child: widget,
-        );
+        widget = MacosTooltip(message: tooltipMessage!, child: widget);
       }
-      return widget;
+      return MacosToolbarPassthrough(child: widget);
     } else {
       return (inOverflowedBuilder != null)
           ? inOverflowedBuilder!(context)

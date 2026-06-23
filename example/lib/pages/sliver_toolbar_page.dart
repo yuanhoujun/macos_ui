@@ -1,5 +1,4 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:macos_ui/macos_ui.dart';
 
 class SliverToolbarPage extends StatefulWidget {
@@ -128,25 +127,23 @@ class _SliverToolbarPageState extends State<SliverToolbarPage> {
                   ),
                 ),
                 SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      Row(
-                        children: [
-                          ...List<Widget>.generate(
-                            3,
-                            (index) => const FlutterLogo(size: 150),
-                          )
-                        ],
-                      ),
-                      ...List<Widget>.generate(
-                        100,
-                        (index) => Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                          child: Text('Item ${index + 1}'),
+                  delegate: SliverChildListDelegate([
+                    Row(
+                      children: [
+                        ...List<Widget>.generate(
+                          3,
+                          (index) => const FlutterLogo(size: 150),
                         ),
+                      ],
+                    ),
+                    ...List<Widget>.generate(
+                      100,
+                      (index) => Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Text('Item ${index + 1}'),
                       ),
-                    ],
-                  ),
+                    ),
+                  ]),
                 ),
               ],
             );

@@ -31,8 +31,8 @@ class MacosPopupButtonTheme extends InheritedTheme {
   /// MacosPopupButtonTheme theme = MacosPopupButtonTheme.of(context);
   /// ```
   static MacosPopupButtonThemeData of(BuildContext context) {
-    final MacosPopupButtonTheme? buttonTheme =
-        context.dependOnInheritedWidgetOfExactType<MacosPopupButtonTheme>();
+    final MacosPopupButtonTheme? buttonTheme = context
+        .dependOnInheritedWidgetOfExactType<MacosPopupButtonTheme>();
     return buttonTheme?.data ?? MacosTheme.of(context).popupButtonTheme;
   }
 
@@ -107,9 +107,9 @@ class MacosPopupButtonThemeData with Diagnosticable {
       identical(this, other) ||
       other is MacosPopupButtonThemeData &&
           runtimeType == other.runtimeType &&
-          highlightColor?.value == other.highlightColor?.value &&
-          backgroundColor?.value == other.backgroundColor?.value &&
-          popupColor?.value == other.popupColor?.value;
+          highlightColor == other.highlightColor &&
+          backgroundColor == other.backgroundColor &&
+          popupColor == other.popupColor;
 
   @override
   int get hashCode => highlightColor.hashCode ^ backgroundColor.hashCode;

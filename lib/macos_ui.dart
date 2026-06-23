@@ -12,7 +12,7 @@
 ///   * [yaru_icons](https://pub.dev/packages/yaru_icons)
 ///   * [yaru_colors](https://pub.dev/packages/yaru_colors)
 
-library macos_ui;
+library;
 
 export 'package:macos_window_utils/macos/ns_window_delegate.dart';
 export 'package:macos_window_utils/macos_window_utils.dart';
@@ -88,3 +88,6 @@ export 'src/theme/search_field_theme.dart';
 export 'src/theme/time_picker_theme.dart';
 export 'src/theme/tooltip_theme.dart';
 export 'src/theme/typography.dart';
+export 'src/enums/accent_color.dart';
+export 'src/utils/window_main_state_listener.dart';
+export 'src/utils/accent_color_listener.dart';

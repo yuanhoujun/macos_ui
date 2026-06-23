@@ -4,7 +4,6 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/rendering.dart';
 import 'package:gradient_borders/gradient_borders.dart';
 import 'package:macos_ui/macos_ui.dart';
-import 'package:macos_ui/src/enums/accent_color.dart';
 import 'package:macos_ui/src/library.dart';
 
 const _kMiniButtonSize = Size(26.0, 11.0);
@@ -131,8 +130,10 @@ class PushButton extends StatefulWidget {
     this.semanticLabel,
     this.mouseCursor = SystemMouseCursors.basic,
     this.secondary,
-  }) : assert(pressedOpacity == null ||
-            (pressedOpacity >= 0.0 && pressedOpacity <= 1.0));
+  }) : assert(
+         pressedOpacity == null ||
+             (pressedOpacity >= 0.0 && pressedOpacity <= 1.0),
+       );
 
   /// The widget below this widget in the tree.
   ///
@@ -171,9 +172,11 @@ class PushButton extends StatefulWidget {
   ///
   /// This defaults to 0.4. If null, opacity will not change on pressed if using
   /// your own custom effects is desired.
-  @Deprecated("'PushButton' animations now match their native macOS’ "
-      "counterparts. Therefore, its opacity no longer changes when it is "
-      "pressed.")
+  @Deprecated(
+    "'PushButton' animations now match their native macOS’ "
+    "counterparts. Therefore, its opacity no longer changes when it is "
+    "pressed.",
+  )
   final double? pressedOpacity;
 
   /// The radius of the button's corners when it has a background color.
@@ -216,11 +219,9 @@ class PushButton extends StatefulWidget {
     properties.add(DiagnosticsProperty('alignment', alignment));
     properties.add(StringProperty('semanticLabel', semanticLabel));
     properties.add(DiagnosticsProperty('borderRadius', borderRadius));
-    properties.add(FlagProperty(
-      'enabled',
-      value: enabled,
-      ifFalse: 'disabled',
-    ));
+    properties.add(
+      FlagProperty('enabled', value: enabled, ifFalse: 'disabled'),
+    );
     properties.add(DiagnosticsProperty('secondary', secondary));
   }
 
@@ -256,8 +257,8 @@ class PushButtonState extends State<PushButton>
   @visibleForTesting
   bool buttonHeldDown = false;
 
-  AccentColor get _accentColor =>
-      AccentColorListener.instance.currentAccentColor ?? AccentColor.blue;
+  AccentColor _getAccentColor(BuildContext context) =>
+      MacosTheme.of(context).accentColor ?? AccentColor.blue;
 
   BoxDecoration _getBoxDecoration() {
     // If the window isn’t currently the main window (that is, it is not in
@@ -265,7 +266,7 @@ class PushButtonState extends State<PushButton>
     final isMainWindow = WindowMainStateListener.instance.isMainWindow;
 
     return _BoxDecorationBuilder.buildBoxDecoration(
-      accentColor: _accentColor,
+      accentColor: _getAccentColor(context),
       isEnabled: widget.enabled,
       isDarkModeEnabled: MacosTheme.of(context).brightness.isDark,
       isSecondary: !isMainWindow || (widget.secondary ?? false),
@@ -284,7 +285,7 @@ class PushButtonState extends State<PushButton>
     return MacosDynamicColor.resolve(
       widget.color ??
           _BoxDecorationBuilder.getGradientColors(
-            accentColor: _accentColor,
+            accentColor: _getAccentColor(context),
             isEnabled: enabled,
             isDarkModeEnabled: theme.brightness.isDark,
             isSecondary: isSecondary || !isWindowMain,
@@ -299,12 +300,12 @@ class PushButtonState extends State<PushButton>
     final blendedBackgroundColor = Color.lerp(
       theme.canvasColor,
       backgroundColor,
-      backgroundColor.opacity,
+      backgroundColor.a,
     )!;
 
     return widget.enabled
         ? textLuminance(blendedBackgroundColor)
-        : textLuminance(blendedBackgroundColor).withOpacity(0.25);
+        : textLuminance(blendedBackgroundColor).withValues(alpha: 0.25);
   }
 
   BoxDecoration _getClickEffectBoxDecoration() {
@@ -348,11 +349,13 @@ class PushButtonState extends State<PushButton>
                   builder: (context, _) {
                     final Color backgroundColor = _getBackgroundColor();
 
-                    final Color foregroundColor =
-                        _getForegroundColor(backgroundColor);
+                    final Color foregroundColor = _getForegroundColor(
+                      backgroundColor,
+                    );
 
-                    final baseStyle =
-                        theme.typography.body.copyWith(color: foregroundColor);
+                    final baseStyle = theme.typography.body.copyWith(
+                      color: foregroundColor,
+                    );
 
                     return DecoratedBox(
                       decoration: _getBoxDecoration().copyWith(
@@ -459,9 +462,6 @@ class _BoxDecorationBuilder {
             MacosColor.fromRGBO(64, 64, 64, 1.0 * isEnabledFactor),
             MacosColor.fromRGBO(57, 57, 57, 1.0 * isEnabledFactor),
           ];
-
-        default:
-          throw UnimplementedError();
       }
     } else {
       switch (accentColor) {
@@ -512,9 +512,6 @@ class _BoxDecorationBuilder {
             MacosColor.fromRGBO(86, 86, 86, 1.0 * isEnabledFactor),
             MacosColor.fromRGBO(55, 55, 55, 1.0 * isEnabledFactor),
           ];
-
-        default:
-          throw UnimplementedError();
       }
     }
   }
@@ -650,9 +647,6 @@ class _BoxDecorationBuilder {
               blurStyle: isEnabled ? BlurStyle.normal : BlurStyle.outer,
             ),
           ];
-
-        default:
-          throw UnimplementedError();
       }
     }
   }

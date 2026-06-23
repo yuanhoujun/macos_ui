@@ -113,15 +113,15 @@ class _RawMacosScrollBar extends RawScrollbar {
     super.scrollbarOrientation,
     required this.effectiveThumbColor,
     super.radius,
-  })  : assert(thickness != null && thickness < double.infinity),
-        assert(thicknessWhileHovering < double.infinity),
-        super(
-          thumbVisibility: thumbVisibility ?? false,
-          fadeDuration: _kScrollbarFadeDuration,
-          timeToFade: _kScrollbarTimeToFade,
-          notificationPredicate:
-              notificationPredicate ?? defaultScrollNotificationPredicate,
-        );
+  }) : assert(thickness != null && thickness < double.infinity),
+       assert(thicknessWhileHovering < double.infinity),
+       super(
+         thumbVisibility: thumbVisibility ?? false,
+         fadeDuration: _kScrollbarFadeDuration,
+         timeToFade: _kScrollbarTimeToFade,
+         notificationPredicate:
+             notificationPredicate ?? defaultScrollNotificationPredicate,
+       );
 
   final double thicknessWhileHovering;
   final Color effectiveThumbColor;
@@ -156,7 +156,7 @@ class _RawMacosScrollBarState extends RawScrollbarState<_RawMacosScrollBar> {
     );
     _trackColorTween = ColorTween(
       begin: MacosColors.transparent,
-      end: widget.effectiveThumbColor.withOpacity(0.15),
+      end: widget.effectiveThumbColor.withValues(alpha: 0.15),
     ).animate(_trackColorAnimationController);
     _thumbThicknessAnimationController.addListener(() {
       updateScrollbarPainter();

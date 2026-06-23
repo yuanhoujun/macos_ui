@@ -4,9 +4,7 @@ import 'package:macos_ui/src/layout/tab_view/tab_controller.dart';
 import 'package:macos_ui/src/library.dart';
 import 'package:macos_ui/src/theme/macos_theme.dart';
 
-const _kTabViewRadius = BorderRadius.all(
-  Radius.circular(5.0),
-);
+const _kTabViewRadius = BorderRadius.all(Radius.circular(5.0));
 
 /// Specifies layout position for [MacosTab] options inside [MacosTabView].
 enum MacosTabPosition {
@@ -26,6 +24,7 @@ enum MacosTabPosition {
 /// {@template macosTabView}
 /// A multipage interface that displays one page at a time.
 ///
+// ignore: unintended_html_in_doc_comment
 /// <image alt='' src='https://docs-assets.developer.apple.com/published/db00e4fdc8/tabview_2x_bf87676c-ac06-41f4-a430-0b95b43cd278.png' width='400' height='400' />
 ///
 /// A tab view contains a row of navigational items, [tabs], that move the
@@ -44,8 +43,10 @@ class MacosTabView extends StatefulWidget {
     required this.children,
     this.position = MacosTabPosition.top,
     this.padding = const EdgeInsets.all(12.0),
-  }) : assert(controller.length == children.length &&
-            controller.length == tabs.length);
+  }) : assert(
+         controller.length == children.length &&
+             controller.length == tabs.length,
+       );
 
   /// This widget's selection state.
   final MacosTabController controller;
@@ -166,10 +167,7 @@ class _MacosTabViewState extends State<MacosTabView> {
                 const Color(0xFFE6E9EA),
                 const Color(0xFF2B2E33),
               ),
-              border: Border.all(
-                color: outerBorderColor,
-                width: 1.0,
-              ),
+              border: Border.all(color: outerBorderColor, width: 1.0),
               borderRadius: _kTabViewRadius,
             ),
             child: IndexedStack(
