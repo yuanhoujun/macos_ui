@@ -9,7 +9,7 @@ import 'package:macos_ui/src/library.dart';
 const _kMiniButtonSize = Size(26.0, 11.0);
 const _kSmallButtonSize = Size(39.0, 14.0);
 const _kRegularButtonSize = Size(60.0, 18.0);
-const _kLargeButtonSize = Size(48.0, 26.0);
+const _kLargeButtonSize = Size(48.0, 36.0);
 
 const _kMiniButtonPadding = EdgeInsets.only(left: 6.0, right: 6.0, bottom: 1.0);
 const _kSmallButtonPadding = EdgeInsets.symmetric(
