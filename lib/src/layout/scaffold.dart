@@ -18,12 +18,21 @@ class MacosScaffold extends StatefulWidget {
     this.children = const <Widget>[],
     this.toolBar,
     this.backgroundColor,
+    this.enableWallpaperTinting = true,
   });
 
   /// Specifies the background color for the Scaffold.
   ///
   /// The default colors from the theme would be used if no color is specified.
   final Color? backgroundColor;
+
+  /// Whether to enable wallpaper tinting effect on macOS.
+  ///
+  /// When enabled (default), the background color will be adjusted based on
+  /// the system wallpaper. When disabled, the exact [backgroundColor] will be used.
+  ///
+  /// Disabling this can improve performance and provide more predictable colors.
+  final bool enableWallpaperTinting;
 
   /// The children to display in the rest of the scaffold, excluding the
   /// [Sidebar] and [TitleBar] regions.
@@ -77,8 +86,10 @@ class _MacosScaffoldState extends State<MacosScaffold> {
 
         return Stack(
           children: [
-            if (!kIsWeb && defaultTargetPlatform == TargetPlatform.macOS) ...[
-              // Content Area
+            if (!kIsWeb &&
+                defaultTargetPlatform == TargetPlatform.macOS &&
+                widget.enableWallpaperTinting) ...[
+              // Content Area with wallpaper tinting
               Positioned(
                 top: 0,
                 width: width,
