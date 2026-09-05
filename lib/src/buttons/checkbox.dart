@@ -204,7 +204,7 @@ class _CheckboxStack extends StatelessWidget {
           : MacosColors.white;
     }
 
-    if (theme.isMainWindow == false) {
+    if (!isMainWindow) {
       return MacosColors.black;
     }
 
@@ -221,7 +221,11 @@ class _CheckboxStack extends StatelessWidget {
 
     return Stack(
       children: [
-        _InnerDropShadow(value: value, isEnabled: !isDisabled),
+        _InnerDropShadow(
+          value: value,
+          isEnabled: !isDisabled,
+          isMainWindow: isMainWindow,
+        ),
         Center(
           child: Icon(
             icon,
@@ -242,8 +246,15 @@ class _InnerDropShadow extends StatelessWidget {
   /// Whether the checkbox is enabled.
   final bool isEnabled;
 
+  /// Resolved window state, shared with the background and checkmark.
+  final bool isMainWindow;
+
   /// Creates a widget that paints an inner drop shadow for a checkbox.
-  const _InnerDropShadow({required this.value, required this.isEnabled});
+  const _InnerDropShadow({
+    required this.value,
+    required this.isEnabled,
+    required this.isMainWindow,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -253,7 +264,9 @@ class _InnerDropShadow extends StatelessWidget {
       return const SizedBox();
     }
 
-    if (value == true && theme.isMainWindow == true && isEnabled) {
+    // Both checked and mixed controls use the accent fill. Do not cover it
+    // with the unchecked white inset, including when window state is unset.
+    if (value != false && isMainWindow && isEnabled) {
       return const SizedBox();
     }
 
